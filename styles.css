@@ -313,3 +313,45 @@ footer {
 .edit-button:hover {
   background-color: #d9e2ec;
 }
+.task-controls {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.task-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: bold;
+}
+
+.task-controls input,
+.task-controls select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bcccdc;
+  border-radius: 6px;
+  background-color: white;
+  font: inherit;
+}
+
+.task-controls input:focus,
+.task-controls select:focus {
+  outline: 2px solid #9fbfd6;
+  outline-offset: 1px;
+}
+
+@media (max-width: 850px) {
+  .task-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .task-controls {
+    grid-template-columns: 1fr;
+  }
+}

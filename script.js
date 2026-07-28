@@ -17,7 +17,17 @@ const pendingTasksElement = document.querySelector("#pending-tasks");
 const completedTasksElement = document.querySelector("#completed-tasks");
 const formTitle = document.querySelector("#form-title");
 const saveTaskButton = document.querySelector("#save-task-button");
+const taskSearchInput = document.querySelector("#task-search");
 
+const statusFilter = document.querySelector("#status-filter");
+
+const priorityFilter = document.querySelector("#priority-filter");
+
+const clearFiltersButton = document.querySelector(
+
+  "#clear-filters-button"
+
+);
 let editingTaskId = null;
 let tasks = JSON.parse(localStorage.getItem("teachflowTasks")) || [];
 function saveTasks() {
@@ -40,79 +50,178 @@ function formatText(value) {
 }
 
 function renderTasks() {
+
   taskList
+
     .querySelectorAll(".task-card")
+
     .forEach(function (taskCard) {
+
       taskCard.remove();
+
     });
 
+  const searchText = taskSearchInput.value.trim().toLowerCase();
+
+  const selectedStatus = statusFilter.value;
+
+  const selectedPriority = priorityFilter.value;
+
+  const filteredTasks = tasks.filter(function (task) {
+
+    const matchesSearch =
+
+      task.title.toLowerCase().includes(searchText) ||
+
+      task.subject.toLowerCase().includes(searchText);
+
+    const matchesStatus =
+
+      selectedStatus === "all" ||
+
+      task.status === selectedStatus;
+
+    const matchesPriority =
+
+      selectedPriority === "all" ||
+
+      task.priority === selectedPriority;
+
+    return matchesSearch && matchesStatus && matchesPriority;
+
+  });
+
   if (tasks.length === 0) {
+
+    emptyMessage.textContent =
+
+      "No tasks added yet. Click “Add Task” to begin.";
+
     emptyMessage.classList.remove("hidden");
+
+  } else if (filteredTasks.length === 0) {
+
+    emptyMessage.textContent =
+
+      "No tasks match your search or selected filters.";
+
+    emptyMessage.classList.remove("hidden");
+
   } else {
+
     emptyMessage.classList.add("hidden");
+
   }
 
-  tasks.forEach(function (task) {
+  filteredTasks.forEach(function (task) {
+
     const taskCard = document.createElement("article");
 
     taskCard.className = "task-card";
 
     taskCard.innerHTML = `
+
       <div class="task-card-heading">
+
         <div>
+
           <h3>${task.title}</h3>
+
           <p>${task.subject}</p>
+
         </div>
 
         <span class="priority-badge priority-${task.priority}">
+
           ${formatText(task.priority)} Priority
+
         </span>
+
       </div>
 
       <div class="task-details">
+
         <p>
+
           <strong>Due date:</strong>
+
           ${task.dueDate}
+
         </p>
-        
+
         <p>
+
           <strong>Status:</strong>
+
           ${formatText(task.status)}
+
         </p>
+
       </div>
+
       <div class="task-actions">
-  <button
-    class="edit-button"
-    data-id="${task.id}"
-    type="button"
-  >
-    Edit
-  </button>
 
-  <button
-    class="status-button"
-    data-id="${task.id}"
-    type="button"
-  >
-    ${task.status === "completed" ? "Mark Pending" : "Mark Complete"}
-  </button>
+        <button
 
-  <button
-    class="delete-button"
-    data-id="${task.id}"
-    type="button"
-  >
-    Delete
-  </button>
-</div>
+          class="edit-button"
+
+          data-id="${task.id}"
+
+          type="button"
+
+        >
+
+          Edit
+
+        </button>
+
+        <button
+
+          class="status-button"
+
+          data-id="${task.id}"
+
+          type="button"
+
+        >
+
+          ${
+
+            task.status === "completed"
+
+              ? "Mark Pending"
+
+              : "Mark Complete"
+
+          }
+
+        </button>
+
+        <button
+
+          class="delete-button"
+
+          data-id="${task.id}"
+
+          type="button"
+
+        >
+
+          Delete
+
+        </button>
+
+      </div>
+
     `;
 
     taskList.appendChild(taskCard);
+
   });
 
   updateDashboard();
-}
 
+}
 function openTaskForm() {
   editingTaskId = null;
 
@@ -218,6 +327,23 @@ function editTask(taskId) {
   taskFormSection.classList.remove("hidden");
   taskTitleInput.focus();
 }
+taskSearchInput.addEventListener("input", renderTasks);
+
+statusFilter.addEventListener("change", renderTasks);
+
+priorityFilter.addEventListener("change", renderTasks);
+
+clearFiltersButton.addEventListener("click", function () {
+
+  taskSearchInput.value = "";
+
+  statusFilter.value = "all";
+
+  priorityFilter.value = "all";
+
+  renderTasks();
+
+});
 addTaskButton.addEventListener("click", openTaskForm);
 closeFormButton.addEventListener("click", closeTaskForm);
 taskForm.addEventListener("submit", createTask);
