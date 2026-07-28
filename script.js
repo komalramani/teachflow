@@ -18,7 +18,18 @@ function updateDashboard() {
 }
 
 addTaskButton.addEventListener("click", function () {
-  alert("The task form will be added in the next step.");
+  const taskFormSection = document.querySelector("#task-form-section");
+const taskForm = document.querySelector("#task-form");
+const closeFormButton = document.querySelector("#close-form-button");
+
+addTaskButton.addEventListener("click", function () {
+  taskFormSection.classList.remove("hidden");
+});
+
+closeFormButton.addEventListener("click", function () {
+  taskFormSection.classList.add("hidden");
+  taskForm.reset();
+});
 });
 
 updateDashboard();

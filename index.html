@@ -17,6 +17,75 @@
 
   <main>
   <section class="dashboard">
+    <section id="task-form-section" class="task-form-section hidden">
+  <div class="form-header">
+    <div>
+      <p class="section-label">New Task</p>
+      <h2>Add Teaching Task</h2>
+    </div>
+
+    <button
+      id="close-form-button"
+      class="secondary-button"
+      type="button"
+    >
+      Cancel
+    </button>
+  </div>
+
+  <form id="task-form">
+    <div class="form-grid">
+      <label>
+        Task Title
+        <input
+          type="text"
+          id="task-title"
+          required
+        >
+      </label>
+
+      <label>
+        Subject or Class
+        <input
+          type="text"
+          id="task-subject"
+          required
+        >
+      </label>
+
+      <label>
+        Due Date
+        <input
+          type="date"
+          id="task-due-date"
+          required
+        >
+      </label>
+
+      <label>
+        Priority
+        <select id="task-priority" required>
+          <option value="">Select priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+
+      <label>
+        Status
+        <select id="task-status" required>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+      </label>
+    </div>
+
+    <button type="submit">
+      Save Task
+    </button>
+  </form>
+</section>
     <div class="dashboard-heading">
       <div>
         <p class="section-label">Overview</p>
