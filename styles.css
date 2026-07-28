@@ -291,3 +291,17 @@ footer {
 .delete-button:hover {
   background-color: #8f1d14;
 }
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.status-button {
+  background-color: #2f6f4e;
+}
+
+.status-button:hover {
+  background-color: #24583e;
+}

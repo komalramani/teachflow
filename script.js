@@ -78,10 +78,19 @@ function renderTasks() {
         </p>
       </div>
       <div class="task-actions">
-    <button
-        class="delete-button"
-        data-id="${task.id}"
-        type="button">
+  <button
+    class="status-button"
+    data-id="${task.id}"
+    type="button"
+  >
+    ${task.status === "completed" ? "Mark Pending" : "Mark Complete"}
+  </button>
+
+  <button
+    class="delete-button"
+    data-id="${task.id}"
+    type="button"
+  >
     Delete
   </button>
 </div>
@@ -128,18 +137,38 @@ function deleteTask(taskId) {
   saveTasks();
   renderTasks();
 }
+function toggleTaskStatus(taskId) {
+  tasks = tasks.map(function (task) {
+    if (Number(task.id) === taskId) {
+      return {
+        ...task,
+        status: task.status === "completed" ? "pending" : "completed"
+      };
+    }
+
+    return task;
+  });
+
+  saveTasks();
+  renderTasks();
+}
 
 addTaskButton.addEventListener("click", openTaskForm);
 closeFormButton.addEventListener("click", closeTaskForm);
 taskForm.addEventListener("submit", createTask);
 taskList.addEventListener("click", function (event) {
+  const statusButton = event.target.closest(".status-button");
   const deleteButton = event.target.closest(".delete-button");
 
-  if (!deleteButton) {
+  if (statusButton) {
+    const taskId = Number(statusButton.dataset.id);
+    toggleTaskStatus(taskId);
     return;
   }
 
-  const taskId = Number(deleteButton.dataset.id);
-  deleteTask(taskId);
+  if (deleteButton) {
+    const taskId = Number(deleteButton.dataset.id);
+    deleteTask(taskId);
+  }
 });
 renderTasks();
