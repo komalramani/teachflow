@@ -305,3 +305,11 @@ footer {
 .status-button:hover {
   background-color: #24583e;
 }
+.edit-button {
+  color: #315b7d;
+  background-color: #eaf0f5;
+}
+
+.edit-button:hover {
+  background-color: #d9e2ec;
+}

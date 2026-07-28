@@ -15,7 +15,10 @@ const emptyMessage = document.querySelector("#empty-message");
 const totalTasksElement = document.querySelector("#total-tasks");
 const pendingTasksElement = document.querySelector("#pending-tasks");
 const completedTasksElement = document.querySelector("#completed-tasks");
+const formTitle = document.querySelector("#form-title");
+const saveTaskButton = document.querySelector("#save-task-button");
 
+let editingTaskId = null;
 let tasks = JSON.parse(localStorage.getItem("teachflowTasks")) || [];
 function saveTasks() {
   localStorage.setItem("teachflowTasks", JSON.stringify(tasks));
@@ -79,6 +82,14 @@ function renderTasks() {
       </div>
       <div class="task-actions">
   <button
+    class="edit-button"
+    data-id="${task.id}"
+    type="button"
+  >
+    Edit
+  </button>
+
+  <button
     class="status-button"
     data-id="${task.id}"
     type="button"
@@ -103,20 +114,33 @@ function renderTasks() {
 }
 
 function openTaskForm() {
+  editingTaskId = null;
+
+  formTitle.textContent = "Add Teaching Task";
+  saveTaskButton.textContent = "Save Task";
+
+  taskForm.reset();
+  taskStatusInput.value = "pending";
+
   taskFormSection.classList.remove("hidden");
   taskTitleInput.focus();
 }
 
 function closeTaskForm() {
+  editingTaskId = null;
+
+  formTitle.textContent = "Add Teaching Task";
+  saveTaskButton.textContent = "Save Task";
+
   taskFormSection.classList.add("hidden");
   taskForm.reset();
+  taskStatusInput.value = "pending";
 }
 
 function createTask(event) {
   event.preventDefault();
 
-  const newTask = {
-    id: Date.now(),
+  const taskData = {
     title: taskTitleInput.value.trim(),
     subject: taskSubjectInput.value.trim(),
     dueDate: taskDueDateInput.value,
@@ -124,8 +148,27 @@ function createTask(event) {
     status: taskStatusInput.value
   };
 
-  tasks.push(newTask);
-    saveTasks();
+  if (editingTaskId !== null) {
+    tasks = tasks.map(function (task) {
+      if (Number(task.id) === editingTaskId) {
+        return {
+          ...task,
+          ...taskData
+        };
+      }
+
+      return task;
+    });
+  } else {
+    const newTask = {
+      id: Date.now(),
+      ...taskData
+    };
+
+    tasks.push(newTask);
+  }
+
+  saveTasks();
   renderTasks();
   closeTaskForm();
 }
@@ -152,13 +195,42 @@ function toggleTaskStatus(taskId) {
   saveTasks();
   renderTasks();
 }
+function editTask(taskId) {
+  const taskToEdit = tasks.find(function (task) {
+    return Number(task.id) === taskId;
+  });
 
+  if (!taskToEdit) {
+    return;
+  }
+
+  editingTaskId = taskId;
+
+  taskTitleInput.value = taskToEdit.title;
+  taskSubjectInput.value = taskToEdit.subject;
+  taskDueDateInput.value = taskToEdit.dueDate;
+  taskPriorityInput.value = taskToEdit.priority;
+  taskStatusInput.value = taskToEdit.status;
+
+  formTitle.textContent = "Edit Teaching Task";
+  saveTaskButton.textContent = "Update Task";
+
+  taskFormSection.classList.remove("hidden");
+  taskTitleInput.focus();
+}
 addTaskButton.addEventListener("click", openTaskForm);
 closeFormButton.addEventListener("click", closeTaskForm);
 taskForm.addEventListener("submit", createTask);
 taskList.addEventListener("click", function (event) {
+  const editButton = event.target.closest(".edit-button");
   const statusButton = event.target.closest(".status-button");
   const deleteButton = event.target.closest(".delete-button");
+
+  if (editButton) {
+    const taskId = Number(editButton.dataset.id);
+    editTask(taskId);
+    return;
+  }
 
   if (statusButton) {
     const taskId = Number(statusButton.dataset.id);
