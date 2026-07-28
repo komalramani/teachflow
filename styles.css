@@ -355,3 +355,58 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+.due-badge {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  width: fit-content;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+}
+
+.due-overdue {
+
+  color: #991b1b;
+
+  background-color: #fee2e2;
+
+}
+
+.due-today {
+
+  color: #854d0e;
+
+  background-color: #fef3c7;
+
+}
+
+.due-upcoming {
+
+  color: #1e3a8a;
+
+  background-color: #dbeafe;
+
+}
+
+.due-completed {
+
+  color: #166534;
+
+  background-color: #dcfce7;
+
+}
+
+.task-card:has(.due-overdue) {
+
+  border-color: #f1a7a0;
+
+}

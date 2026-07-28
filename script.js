@@ -48,7 +48,59 @@ function updateDashboard() {
 function formatText(value) {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
+function getDueStatus(task) {
 
+  if (task.status === "completed") {
+
+    return {
+
+      label: "Completed",
+
+      className: "due-completed"
+
+    };
+
+  }
+
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+
+  const dueDate = new Date(`${task.dueDate}T00:00:00`);
+
+  if (dueDate < today) {
+
+    return {
+
+      label: "Overdue",
+
+      className: "due-overdue"
+
+    };
+
+  }
+
+  if (dueDate.getTime() === today.getTime()) {
+
+    return {
+
+      label: "Due Today",
+
+      className: "due-today"
+
+    };
+
+  }
+
+  return {
+
+    label: "Upcoming",
+
+    className: "due-upcoming"
+
+  };
+
+}
 function renderTasks() {
 
   taskList
@@ -118,7 +170,7 @@ function renderTasks() {
     const taskCard = document.createElement("article");
 
     taskCard.className = "task-card";
-
+    const dueStatus = getDueStatus(task);
     taskCard.innerHTML = `
 
       <div class="task-card-heading">
@@ -140,7 +192,11 @@ function renderTasks() {
       </div>
 
       <div class="task-details">
+      <span class="due-badge ${dueStatus.className}">
 
+        ${dueStatus.label}
+
+      </span>
         <p>
 
           <strong>Due date:</strong>
