@@ -16,7 +16,7 @@ const totalTasksElement = document.querySelector("#total-tasks");
 const pendingTasksElement = document.querySelector("#pending-tasks");
 const completedTasksElement = document.querySelector("#completed-tasks");
 
-const tasks = JSON.parse(localStorage.getItem("teachflowTasks")) || [];
+let tasks = JSON.parse(localStorage.getItem("teachflowTasks")) || [];
 function saveTasks() {
   localStorage.setItem("teachflowTasks", JSON.stringify(tasks));
 }
@@ -71,12 +71,20 @@ function renderTasks() {
           <strong>Due date:</strong>
           ${task.dueDate}
         </p>
-
+        
         <p>
           <strong>Status:</strong>
           ${formatText(task.status)}
         </p>
       </div>
+      <div class="task-actions">
+    <button
+        class="delete-button"
+        data-id="${task.id}"
+        type="button">
+    Delete
+  </button>
+</div>
     `;
 
     taskList.appendChild(taskCard);
@@ -112,9 +120,26 @@ function createTask(event) {
   renderTasks();
   closeTaskForm();
 }
+function deleteTask(taskId) {
+  tasks = tasks.filter(function (task) {
+    return Number(task.id) !== taskId;
+  });
+
+  saveTasks();
+  renderTasks();
+}
 
 addTaskButton.addEventListener("click", openTaskForm);
 closeFormButton.addEventListener("click", closeTaskForm);
 taskForm.addEventListener("submit", createTask);
+taskList.addEventListener("click", function (event) {
+  const deleteButton = event.target.closest(".delete-button");
 
+  if (!deleteButton) {
+    return;
+  }
+
+  const taskId = Number(deleteButton.dataset.id);
+  deleteTask(taskId);
+});
 renderTasks();

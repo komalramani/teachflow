@@ -278,3 +278,16 @@ footer {
     gap: 8px;
   }
 }
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.delete-button {
+  background-color: #b42318;
+}
+
+.delete-button:hover {
+  background-color: #8f1d14;
+}
