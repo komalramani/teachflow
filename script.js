@@ -16,8 +16,10 @@ const totalTasksElement = document.querySelector("#total-tasks");
 const pendingTasksElement = document.querySelector("#pending-tasks");
 const completedTasksElement = document.querySelector("#completed-tasks");
 
-const tasks = [];
-
+const tasks = JSON.parse(localStorage.getItem("teachflowTasks")) || [];
+function saveTasks() {
+  localStorage.setItem("teachflowTasks", JSON.stringify(tasks));
+}
 function updateDashboard() {
   const completedTasks = tasks.filter(function (task) {
     return task.status === "completed";
@@ -106,7 +108,7 @@ function createTask(event) {
   };
 
   tasks.push(newTask);
-
+    saveTasks();
   renderTasks();
   closeTaskForm();
 }
