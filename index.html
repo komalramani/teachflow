@@ -16,13 +16,44 @@
   </header>
 
   <main>
-    <section>
-      <h2>Teaching Tasks</h2>
-      <p>Manage your lessons, deadlines and classroom activities.</p>
+  <section class="dashboard">
+    <div class="dashboard-heading">
+      <div>
+        <p class="section-label">Overview</p>
+        <h2>Teaching Dashboard</h2>
+        <p>
+          Track your teaching tasks, deadlines and progress.
+        </p>
+      </div>
 
       <button id="add-task-button">Add Task</button>
+    </div>
+
+    <div class="summary-grid">
+      <article class="summary-card">
+        <p>Total Tasks</p>
+        <h3 id="total-tasks">0</h3>
+      </article>
+
+      <article class="summary-card">
+        <p>Pending</p>
+        <h3 id="pending-tasks">0</h3>
+      </article>
+
+      <article class="summary-card">
+        <p>Completed</p>
+        <h3 id="completed-tasks">0</h3>
+      </article>
+    </div>
+
+    <section class="task-section">
+      <h2>Teaching Tasks</h2>
+      <p id="empty-message">
+        No tasks added yet. Click “Add Task” to begin.
+      </p>
     </section>
-  </main>
+  </section>
+</main>
 
   <footer>
     <p>Built by Komal Ramani</p>
