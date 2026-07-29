@@ -1,38 +1,105 @@
 # TeachFlow
 
-TeachFlow is an educator productivity dashboard designed to help teachers manage lessons, deadlines and classroom activities in one place.
+TeachFlow is a responsive educator productivity dashboard built with HTML, CSS and JavaScript.
 
-## Project status
+It helps teachers manage classroom tasks, deadlines, priorities and progress from one simple dashboard.
 
-Version 1 is currently under development.
+## Live Demo
 
-## Current features
+Live demo coming soon.
 
-- Responsive page structure
-- Teaching tasks section
-- Interactive Add Task button
-- HTML, CSS and JavaScript integration
+## Features
 
-## Planned features
-
-- Add, edit and delete teaching tasks
-- Task priority and status
-- Due-date tracking
-- Search and filtering
-- Local storage
+- Add teaching tasks
+- Edit existing tasks
+- Delete tasks
+- Mark tasks as pending or completed
+- Save tasks using localStorage
+- Search by task title or subject
+- Filter by status
+- Filter by priority
+- Sort by due date
+- Sort by priority
+- Overdue task detection
+- Due Today and Upcoming indicators
 - Dashboard statistics
-- Responsive mobile layout
+- Responsive desktop, tablet and mobile layouts
 
-## Technologies used
+## Dashboard Statistics
+
+TeachFlow displays:
+
+- Total tasks
+- Pending tasks
+- Completed tasks
+- Overdue tasks
+- Tasks due today
+
+## Technologies Used
 
 - HTML5
 - CSS3
 - JavaScript
+- Local Storage
 - Git
 - GitHub
+- VS Code
+
+## How to Run Locally
+
+1. Clone the repository
+
+```bash
+
+git clone https://github.com/komalramani/teachflow.git
+
+```
+
+2. Open the project folder.
+
+3. Open `index.html` in your browser
+
+OR
+
+Use the **Live Server** extension in VS Code.
+
+No installation or dependencies are required.
+
+## Project Structure
+
+```
+teachflow/
+│
+├── index.html      # Dashboard layout and HTML structure
+├── styles.css      # Responsive styling and UI components
+├── script.js       # Task CRUD operations, filtering, sorting, and     dashboard updates
+└── README.md       # Project documentation
+```
+
+## Key Skills Demonstrated
+
+- HTML5 semantic structure
+- CSS Flexbox and responsive design
+- JavaScript DOM manipulation
+- CRUD functionality
+- Event handling
+- Filtering and sorting data
+- Git & GitHub version control
+- Responsive mobile-first development
+
+## Future Improvements
+- Dark mode
+- Task categories
+- Progress charts
+- Export tasks to CSV/PDF
+- User accounts & cloud storage
+- React version
+- Backend integration
 
 ## Author
 
-Komal Ramani  
-PhD in Computer Science  
-Educator transitioning into Front-End and EdTech Development
+Komal Ramani
+
+PhD in Computer Science
+
+Educator transitioning into Front-End Web Development
