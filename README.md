@@ -8,6 +8,20 @@ It helps teachers manage classroom tasks, deadlines, priorities and progress fro
 
 Live demo coming soon.
 
+## Screenshots
+
+### Desktop View
+
+![TeachFlow desktop dashboard](screenshots/Desktop.png)
+
+### Tablet View
+
+![TeachFlow tablet layout](screenshots/Tablet.png)
+
+### Mobile View
+
+![TeachFlow mobile layout](screenshots/Mobile.png)
+
 ## Features
 
 - Add teaching tasks
@@ -105,4 +119,4 @@ PhD in Computer Science
 Front-End Web Developer with a strong foundation in problem-solving, responsive web design, and JavaScript. Former ICT educator with experience creating engaging learning experiences, now focused on building modern, user-friendly web applications.
 
 - GitHub: [github.com/komalramani](https://github.com/komalramani)
-- LinkedIn: [linkedin.com/in/komal-ramani-27255389](https://www.linkedin.com/in/komal-ramani-27255389/)
+- LinkedIn: [linkedin.com/in/komal-ramani-27255389](https://www.linkedin.com/in/komal-ramani-227255389/)
