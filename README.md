@@ -98,8 +98,11 @@ teachflow/
 
 ## Author
 
-Komal Ramani
+**Komal Ramani**
 
 PhD in Computer Science
 
-Educator transitioning into Front-End Web Development
+Front-End Web Developer with a strong foundation in problem-solving, responsive web design, and JavaScript. Former ICT educator with experience creating engaging learning experiences, now focused on building modern, user-friendly web applications.
+
+- GitHub: [github.com/komalramani](https://github.com/komalramani)
+- LinkedIn: [linkedin.com/in/komal-ramani-27255389](https://www.linkedin.com/in/komal-ramani-27255389/)
