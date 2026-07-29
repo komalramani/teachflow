@@ -29,6 +29,11 @@ const clearFiltersButton = document.querySelector(
 
 );
 const sortTasksSelect = document.querySelector("#sort-tasks");
+const overdueTasksElement =
+  document.querySelector("#overdue-tasks");
+
+const dueTodayTasksElement =
+  document.querySelector("#due-today-tasks");
 let editingTaskId = null;
 let tasks = JSON.parse(localStorage.getItem("teachflowTasks")) || [];
 function saveTasks() {
@@ -41,9 +46,19 @@ function updateDashboard() {
 
   const pendingTasks = tasks.length - completedTasks;
 
+  const overdueTasks = tasks.filter(function (task) {
+    return getDueStatus(task).label === "Overdue";
+  }).length;
+
+  const dueTodayTasks = tasks.filter(function (task) {
+    return getDueStatus(task).label === "Due Today";
+  }).length;
+
   totalTasksElement.textContent = tasks.length;
   pendingTasksElement.textContent = pendingTasks;
   completedTasksElement.textContent = completedTasks;
+  overdueTasksElement.textContent = overdueTasks;
+  dueTodayTasksElement.textContent = dueTodayTasks;
 }
 
 function formatText(value) {
