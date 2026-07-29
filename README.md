@@ -6,7 +6,7 @@ It helps teachers manage classroom tasks, deadlines, priorities and progress fro
 
 ## Live Demo
 
-Live demo coming soon.
+[View the live TeachFlow application](https://komalramani.github.io/teachflow/)
 
 ## Screenshots
 
