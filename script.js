@@ -28,6 +28,7 @@ const clearFiltersButton = document.querySelector(
   "#clear-filters-button"
 
 );
+const sortTasksSelect = document.querySelector("#sort-tasks");
 let editingTaskId = null;
 let tasks = JSON.parse(localStorage.getItem("teachflowTasks")) || [];
 function saveTasks() {
@@ -142,6 +143,39 @@ function renderTasks() {
     return matchesSearch && matchesStatus && matchesPriority;
 
   });
+    const sortedTasks = [...filteredTasks];
+
+const priorityOrder = {
+    high: 3,
+    medium: 2,
+    low: 1
+};
+
+switch (sortTasksSelect.value) {
+    case "due-ascending":
+        sortedTasks.sort(function (taskA, taskB) {
+            return new Date(taskA.dueDate) - new Date(taskB.dueDate);
+        });
+        break;
+
+    case "due-descending":
+        sortedTasks.sort(function (taskA, taskB) {
+            return new Date(taskB.dueDate) - new Date(taskA.dueDate);
+        });
+        break;
+
+    case "priority-high":
+        sortedTasks.sort(function (taskA, taskB) {
+            return priorityOrder[taskB.priority] - priorityOrder[taskA.priority];
+        });
+        break;
+
+    case "priority-low":
+        sortedTasks.sort(function (taskA, taskB) {
+            return priorityOrder[taskA.priority] - priorityOrder[taskB.priority];
+        });
+        break;
+}
 
   if (tasks.length === 0) {
 
@@ -151,7 +185,7 @@ function renderTasks() {
 
     emptyMessage.classList.remove("hidden");
 
-  } else if (filteredTasks.length === 0) {
+  } else if (sortedTasks.length === 0) {
 
     emptyMessage.textContent =
 
@@ -165,7 +199,7 @@ function renderTasks() {
 
   }
 
-  filteredTasks.forEach(function (task) {
+  sortedTasks.forEach(function (task) {
 
     const taskCard = document.createElement("article");
 
@@ -390,15 +424,12 @@ statusFilter.addEventListener("change", renderTasks);
 priorityFilter.addEventListener("change", renderTasks);
 
 clearFiltersButton.addEventListener("click", function () {
-
   taskSearchInput.value = "";
-
   statusFilter.value = "all";
-
   priorityFilter.value = "all";
+  sortTasksSelect.value = "default";
 
   renderTasks();
-
 });
 addTaskButton.addEventListener("click", openTaskForm);
 closeFormButton.addEventListener("click", closeTaskForm);
@@ -426,3 +457,4 @@ taskList.addEventListener("click", function (event) {
   }
 });
 renderTasks();
+sortTasksSelect.addEventListener("change", renderTasks);

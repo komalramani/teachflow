@@ -315,7 +315,7 @@ footer {
 }
 .task-controls {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr auto;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr auto;
   align-items: end;
   gap: 16px;
   margin-bottom: 24px;
